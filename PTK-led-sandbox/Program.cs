@@ -78,7 +78,7 @@ namespace PTK_led_sandbox
             if (filename_bottom != null)
             {
                 displayChunk = 4;
-                fileOutputStr_bottom = convert_bmp(displayChunk, filename_top);
+                fileOutputStr_bottom = convert_bmp(displayChunk, filename_bottom);
             }
 
 
