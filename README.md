@@ -2,7 +2,7 @@
 App for working with Wacom PTK-1240 LED displays
 
 # Usage
-1. Make a 16 color format bmp image.
+1. Make a 16 color format bmp image with a resolution of 64 x 128 px.
 2. Place it alongside the app.
 3. Run either with or without command line args.
 
