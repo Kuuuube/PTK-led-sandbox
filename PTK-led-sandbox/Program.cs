@@ -6,126 +6,190 @@ namespace PTK_led_sandbox
     {
         static void Main(string[] args)
         {
+            string config_top;
+            string config_bottom;
+            string tablet_name;
             int displayChunk = 0;
-            bool surveyCompleted = false;
-            do
+            string tablet;
+            string display;
+            string filename_top = null;
+            string filename_bottom = null;
+            string fileOutputStr_top = "";
+            string fileOutputStr_bottom = "";
+
+            Console.WriteLine("Which LED display to set image for?\n1. Top\n2. Bottom\n3. Both");
+            display = Console.ReadLine();
+
+            Console.WriteLine("Generate config for which tablet?\n1. PTK-540WL\n2. PTK-640\n3. PTK-840\n4. PTK-1240");
+            tablet = Console.ReadLine();
+
+            switch (tablet)
             {
-                Console.WriteLine("Which LED display to set image for? 1 or 2 (top or bottom)");
-                string answer = Console.ReadLine();
-                if (answer == "1")
-                {
-                    displayChunk = 0;
-                    surveyCompleted = true;
-                }
-                else if (answer == "2")
-                {
-                    displayChunk = 4;
-                    surveyCompleted = true;
-                }
-            } while (!surveyCompleted);
-
-            const int headerOffset = 118;
-            const int LENGTH = 64;
-            const int HEIGTH = 32 * 4;        
-
-            byte[] bmpFile = System.IO.File.ReadAllBytes("led.bmp");
-            byte[] imgData = new ArraySegment<byte>(bmpFile, headerOffset, bmpFile.Length - headerOffset).ToArray();
-
-            // flipping stuff because in bmp file it's stored in reverse 
-            // flip every half of a byte
-            for (int i = 0; i < imgData.Length; i++)
-            {
-                byte chr = imgData[i];
-                byte h = (byte)((chr >> 4) & 0x0F);
-                byte l = (byte)((chr & 0x0F) << 4);
-                imgData[i] = 0;
-                imgData[i] |= h;
-                imgData[i] |= l;
+                case "1": //PTK-540WL
+                    config_top = "{\n  \"Name\": \"Wacom PTK-540WL\",\n  \"Specifications\": {\n    \"Digitizer\": {\n      \"Width\": 203.2,\n      \"Height\": 127.0,\n      \"MaxX\": 40640.0,\n      \"MaxY\": 25400.0\n    },\n    \"Pen\": {\n      \"MaxPressure\": 2047,\n      \"Buttons\": {\n        \"ButtonCount\": 2\n      }\n    },\n    \"AuxiliaryButtons\": {\n      \"ButtonCount\": 9\n    },\n    \"MouseButtons\": null,\n    \"Touch\": null\n  },\n  \"DigitizerIdentifiers\": [\n    {\n      \"VendorID\": 1386,\n      \"ProductID\": 188,\n      \"InputReportLength\": 10,\n      \"OutputReportLength\": null,\n      \"ReportParser\": \"OpenTabletDriver.Configurations.Parsers.Wacom.IntuosV1.IntuosV1ReportParser\",\n      \"FeatureInitReport\": [\n        \"AgI=\",\n";
+                    config_bottom = "      ],\n      \"OutputInitReport\": null,\n      \"DeviceStrings\": {},\n      \"InitializationStrings\": []\n    },\n    {\n      \"VendorID\": 1386,\n      \"ProductID\": 188,\n      \"InputReportLength\": 11,\n      \"OutputReportLength\": null,\n      \"ReportParser\": \"OpenTabletDriver.Configurations.Parsers.Wacom.IntuosV1.WacomDriverIntuosV1ReportParser\",\n      \"FeatureInitReport\": [\n        \"AgI=,\"\n      ],\n      \"OutputInitReport\": null,\n      \"DeviceStrings\": {},\n      \"InitializationStrings\": []\n    }\n  ],\n  \"AuxilaryDeviceIdentifiers\": [],\n  \"Attributes\": {}\n}";
+                    tablet_name = "PTK-540WL";
+                    break;
+                case "2": //PTK-640
+                    config_top = "{\n  \"Name\": \"Wacom PTK-640\",\n  \"Specifications\": {\n    \"Digitizer\": {\n      \"Width\": 223.52,\n      \"Height\": 139.7,\n      \"MaxX\": 44704.0,\n      \"MaxY\": 27940.0\n    },\n    \"Pen\": {\n      \"MaxPressure\": 2047,\n      \"Buttons\": {\n        \"ButtonCount\": 2\n      }\n    },\n    \"AuxiliaryButtons\": {\n      \"ButtonCount\": 9\n    },\n    \"MouseButtons\": null,\n    \"Touch\": null\n  },\n  \"DigitizerIdentifiers\": [\n    {\n      \"VendorID\": 1386,\n      \"ProductID\": 185,\n      \"InputReportLength\": 10,\n      \"OutputReportLength\": null,\n      \"ReportParser\": \"OpenTabletDriver.Configurations.Parsers.Wacom.IntuosV1.IntuosV1ReportParser\",\n      \"FeatureInitReport\": [\n        \"AgI=\",\n";
+                    config_bottom = "      ],\n      \"OutputInitReport\": null,\n      \"DeviceStrings\": {},\n      \"InitializationStrings\": []\n    },\n    {\n      \"VendorID\": 1386,\n      \"ProductID\": 185,\n      \"InputReportLength\": 11,\n      \"OutputReportLength\": null,\n      \"ReportParser\": \"OpenTabletDriver.Configurations.Parsers.Wacom.IntuosV1.WacomDriverIntuosV1ReportParser\",\n      \"FeatureInitReport\": [\n        \"AgI=,\"\n      ],\n      \"OutputInitReport\": null,\n      \"DeviceStrings\": {},\n      \"InitializationStrings\": []\n    }\n  ],\n  \"AuxilaryDeviceIdentifiers\": [],\n  \"Attributes\": {}\n}";
+                    tablet_name = "PTK-640";
+                    break;
+                case "3": //PTK-840
+                    config_top = "{\n  \"Name\": \"Wacom PTK-840\",\n  \"Specifications\": {\n    \"Digitizer\": {\n      \"Width\": 325.12,\n      \"Height\": 203.2,\n      \"MaxX\": 65024.0,\n      \"MaxY\": 40640.0\n    },\n    \"Pen\": {\n      \"MaxPressure\": 2047,\n      \"Buttons\": {\n        \"ButtonCount\": 2\n      }\n    },\n    \"AuxiliaryButtons\": {\n      \"ButtonCount\": 9\n    },\n    \"MouseButtons\": null,\n    \"Touch\": null\n  },\n  \"DigitizerIdentifiers\": [\n    {\n      \"VendorID\": 1386,\n      \"ProductID\": 186,\n      \"InputReportLength\": 10,\n      \"OutputReportLength\": null,\n      \"ReportParser\": \"OpenTabletDriver.Configurations.Parsers.Wacom.IntuosV1.IntuosV1ReportParser\",\n      \"FeatureInitReport\": [\n        \"AgI=\",\n";
+                    config_bottom = "      ],\n      \"OutputInitReport\": null,\n      \"DeviceStrings\": {},\n      \"InitializationStrings\": []\n    },\n    {\n      \"VendorID\": 1386,\n      \"ProductID\": 186,\n      \"InputReportLength\": 11,\n      \"OutputReportLength\": null,\n      \"ReportParser\": \"OpenTabletDriver.Configurations.Parsers.Wacom.IntuosV1.WacomDriverIntuosV1ReportParser\",\n      \"FeatureInitReport\": [\n        \"AgI=,\"\n      ],\n      \"OutputInitReport\": null,\n      \"DeviceStrings\": {},\n      \"InitializationStrings\": []\n    }\n  ],\n  \"AuxilaryDeviceIdentifiers\": [],\n  \"Attributes\": {}\n}";
+                    tablet_name = "PTK-840";
+                    break;
+                case "4": //PTK-1240
+                    config_top = "{\n  \"Name\": \"Wacom PTK-1240\",\n  \"Specifications\": {\n    \"Digitizer\": {\n      \"Width\": 487.68,\n      \"Height\": 304.8,\n      \"MaxX\": 97536.0,\n      \"MaxY\": 60960.0\n    },\n    \"Pen\": {\n      \"MaxPressure\": 2047,\n      \"Buttons\": {\n        \"ButtonCount\": 2\n      }\n    },\n    \"AuxiliaryButtons\": {\n      \"ButtonCount\": 9\n    },\n    \"MouseButtons\": null,\n    \"Touch\": null\n  },\n  \"DigitizerIdentifiers\": [\n    {\n      \"VendorID\": 1386,\n      \"ProductID\": 187,\n      \"InputReportLength\": 10,\n      \"OutputReportLength\": null,\n      \"ReportParser\": \"OpenTabletDriver.Configurations.Parsers.Wacom.IntuosV1.IntuosV1ReportParser\",\n      \"FeatureInitReport\": [\n        \"AgI=\",\n";
+                    config_bottom = "      ],\n      \"OutputInitReport\": null,\n      \"DeviceStrings\": {},\n      \"InitializationStrings\": []\n    },\n    {\n      \"VendorID\": 1386,\n      \"ProductID\": 187,\n      \"InputReportLength\": 11,\n      \"OutputReportLength\": null,\n      \"ReportParser\": \"OpenTabletDriver.Configurations.Parsers.Wacom.IntuosV1.WacomDriverIntuosV1ReportParser\",\n      \"FeatureInitReport\": [\n        \"AgI=\"\n      ],\n      \"OutputInitReport\": null,\n      \"DeviceStrings\": {},\n      \"InitializationStrings\": []\n    }\n  ],\n  \"AuxilaryDeviceIdentifiers\": [],\n  \"Attributes\": {}\n}";
+                    tablet_name = "PTK-1240";
+                    break;
+                default:
+                    config_top = "";
+                    config_bottom = "";
+                    tablet_name = "no_name";
+                    break;
             }
-            Array.Reverse(imgData);
 
-            byte[] convertedImg = new byte[LENGTH * HEIGTH];
-
-            int x = 0;
-            int y = 0;
-            bool firstline = true;
-            int c = 1;
-            for (int i = 0; i < imgData.Length; i++)
+            switch (display)
             {
-                byte chr = imgData[i];
-                byte h = (byte)((chr >> 4) & 0x0F);
-                byte l = (byte)(chr & 0x0F);
+                case "1": //top
+                    Console.WriteLine("File to convert:");
+                    filename_top = Console.ReadLine();
+                    break;
+                case "2": //bottom
+                    Console.WriteLine("File to convert:");
+                    filename_bottom = Console.ReadLine();
+                    break;
+                case "3": //both
+                    Console.WriteLine("File to convert for top screen:");
+                    filename_top = Console.ReadLine();
+                    Console.WriteLine("File to convert for bottom screen:");
+                    filename_bottom = Console.ReadLine();
+                    break;
+            }
 
-                int k1 = c;
-                int k2 = c + 2;
-                convertedImg[k1] = h;
-                convertedImg[k2] = l;
+            if (filename_top != null)
+            {
+                displayChunk = 0;
+                fileOutputStr_top = convert_bmp(displayChunk, filename_top);
+            }
+            if (filename_bottom != null)
+            {
+                displayChunk = 4;
+                fileOutputStr_bottom = convert_bmp(displayChunk, filename_top);
+            }
 
 
-                //Console.WriteLine("{0} {1}", k1, k2);
-                c += 4;
-                x += 2;
+            string configStr = config_top + fileOutputStr_top + fileOutputStr_bottom + config_bottom;
+            System.IO.File.WriteAllText(tablet_name + ".json", configStr);
 
-                if (x >= LENGTH)
+
+
+            string convert_bmp (int displayChunk, string filename)
+            {
+                const int headerOffset = 118;
+                const int LENGTH = 64;
+                const int HEIGTH = 32 * 4;
+
+                byte[] bmpFile = System.IO.File.ReadAllBytes(filename);
+                byte[] imgData = new ArraySegment<byte>(bmpFile, headerOffset, bmpFile.Length - headerOffset).ToArray();
+
+                // flipping stuff because in bmp file it's stored in reverse 
+                // flip every half of a byte
+                for (int i = 0; i < imgData.Length; i++)
                 {
-                    y++;
-                    x = 0;
-                    if (firstline)
+                    byte chr = imgData[i];
+                    byte h = (byte)((chr >> 4) & 0x0F);
+                    byte l = (byte)((chr & 0x0F) << 4);
+                    imgData[i] = 0;
+                    imgData[i] |= h;
+                    imgData[i] |= l;
+                }
+                Array.Reverse(imgData);
+
+                byte[] convertedImg = new byte[LENGTH * HEIGTH];
+
+                int x = 0;
+                int y = 0;
+                bool firstline = true;
+                int c = 1;
+                for (int i = 0; i < imgData.Length; i++)
+                {
+                    byte chr = imgData[i];
+                    byte h = (byte)((chr >> 4) & 0x0F);
+                    byte l = (byte)(chr & 0x0F);
+
+                    int k1 = c;
+                    int k2 = c + 2;
+                    convertedImg[k1] = h;
+                    convertedImg[k2] = l;
+
+
+                    //Console.WriteLine("{0} {1}", k1, k2);
+                    c += 4;
+                    x += 2;
+
+                    if (x >= LENGTH)
                     {
-                        firstline = false;
-                        c -= LENGTH * 2 + 1;
-                        //Console.WriteLine("c = {0}\n", c);
+                        y++;
+                        x = 0;
+                        if (firstline)
+                        {
+                            firstline = false;
+                            c -= LENGTH * 2 + 1;
+                            //Console.WriteLine("c = {0}\n", c);
+                        }
+                        else
+                        {
+                            firstline = true;
+                            c += 1;
+                            //Console.WriteLine("c = {0}\n", c);
+                        }
+                    }
+                }
+
+
+                const int MAX_CHUNK_SIZE = 512;
+                byte[] initString = new byte[256 + 3];
+                int initStringIndex = 0;
+                string fileOutputStr = "";
+                int displayChunkBlock = 0;
+                for (int i = 0; i < LENGTH * HEIGTH; i++)
+                {
+                    if (!Convert.ToBoolean(i % MAX_CHUNK_SIZE))
+                    {
+                        if (i > 0)
+                        {
+                            fileOutputStr += '\"' + Convert.ToBase64String(initString) + "\"," + Environment.NewLine;
+                            Array.Clear(initString, 0, initString.Length);
+                        }
+
+                        if (displayChunkBlock > 3)
+                        {
+                            displayChunk++;
+                            displayChunkBlock = 0;
+                        }
+
+                        initString[0] = 0x23;
+                        initString[1] = (byte)displayChunk;
+                        initString[2] = (byte)displayChunkBlock;
+                        initStringIndex = 3;
+                        displayChunkBlock++;
+                    }
+                    if (!Convert.ToBoolean(i % 2))
+                    {
+                        initString[initStringIndex] = (byte)((convertedImg[i] << 4) & 0xF0);
+                        initStringIndex++;
                     }
                     else
                     {
-                        firstline = true;
-                        c += 1;
-                        //Console.WriteLine("c = {0}\n", c);
+                        initString[initStringIndex - 1] |= convertedImg[i];
                     }
                 }
+                return (fileOutputStr);
             }
-
-
-            const int MAX_CHUNK_SIZE = 512;
-            byte[] initString = new byte[256 + 3];            
-            int initStringIndex = 0;
-            string fileOutputStr = "";
-            int displayChunkBlock = 0;
-            for (int i = 0; i < LENGTH * HEIGTH; i++)
-            {
-                if (!Convert.ToBoolean(i % MAX_CHUNK_SIZE))
-                {
-                    if (i > 0)
-                    {
-                        fileOutputStr += '\"' + Convert.ToBase64String(initString) + "\"," + Environment.NewLine;
-                        Array.Clear(initString, 0, initString.Length);
-                    }
-
-                    if (displayChunkBlock > 3)
-                    {
-                        displayChunk++;
-                        displayChunkBlock = 0;
-                    }
-
-                    initString[0] = 0x23;
-                    initString[1] = (byte)displayChunk;
-                    initString[2] = (byte)displayChunkBlock;
-                    initStringIndex = 3;
-                    displayChunkBlock++;
-                }
-                if (!Convert.ToBoolean(i % 2))
-                {
-                    initString[initStringIndex] = (byte)((convertedImg[i] << 4) & 0xF0);
-                    initStringIndex++;
-                }
-                else
-                {
-                    initString[initStringIndex - 1] |= convertedImg[i];
-                }
-            }
-
-            fileOutputStr += '\"' + Convert.ToBase64String(initString) + "\"," + Environment.NewLine;
-            System.IO.File.WriteAllText("inits.txt", fileOutputStr);
 
             return;
         }
