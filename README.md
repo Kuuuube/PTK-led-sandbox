@@ -22,6 +22,8 @@ PTK-led-sandbox {display} {tablet} {filename 1} {filename 2}
 
 ### Tablet
 
+`0`: Generate without tablet config
+
 `1`: PTK-540WL
 
 `2`: PTK-640
