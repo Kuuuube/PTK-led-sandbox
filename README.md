@@ -1,12 +1,12 @@
 # PTK-led-sandbox
 App for working with Wacom PTK-1240 LED displays
 
-# Usage
+## Usage
 1. Make a 16 color format bmp image with a resolution of 64 x 128 px.
 2. Place it alongside the app.
 3. Run either with or without command line args.
 
-# Command line args
+## Command line args
 
 ```
 PTK-led-sandbox {display} {tablet} {filename 1} {filename 2}
@@ -48,7 +48,7 @@ When Display is `3` this will be used for the bottom display.
 
 When Display is `1` or `2` this is not used and can be omitted.
 
-# Building
+## Building
 
 ```
 $options= @('--configuration', 'Release', '-p:PublishSingleFile=true', '-p:DebugType=embedded', '--self-contained', 'false')
