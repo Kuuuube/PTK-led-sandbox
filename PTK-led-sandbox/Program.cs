@@ -17,16 +17,56 @@ namespace PTK_led_sandbox
             string fileOutputStr_top = "";
             string fileOutputStr_bottom = "";
 
-            Console.WriteLine("Which LED display to set image for?\n1. Top\n2. Bottom\n3. Both");
-            display = Console.ReadLine();
+            if (args.Length != 0)
+            {
+                display = args[0];
+                tablet = args[1];
+                switch (display)
+                {
+                    case "1":
+                        filename_top = args[2];
+                        break;
+                    case "2":
+                        filename_bottom = args[2];
+                        break;
+                    case "3":
+                        filename_top = args[2];
+                        filename_bottom = args[3];
+                        break;
+                }
+            }
+            else
+            {
 
-            Console.WriteLine("Generate config for which tablet?\n1. PTK-540WL\n2. PTK-640\n3. PTK-840\n4. PTK-1240");
-            tablet = Console.ReadLine();
+                Console.WriteLine("Which LED display to set image for?\n1. Top\n2. Bottom\n3. Both");
+                display = Console.ReadLine();
+
+                Console.WriteLine("Generate config for which tablet?\n1. PTK-540WL\n2. PTK-640\n3. PTK-840\n4. PTK-1240");
+                tablet = Console.ReadLine();
+
+                switch (display)
+                {
+                    case "1": //top
+                        Console.WriteLine("File to convert:");
+                        filename_top = Console.ReadLine();
+                        break;
+                    case "2": //bottom
+                        Console.WriteLine("File to convert:");
+                        filename_bottom = Console.ReadLine();
+                        break;
+                    case "3": //both
+                        Console.WriteLine("File to convert for top screen:");
+                        filename_top = Console.ReadLine();
+                        Console.WriteLine("File to convert for bottom screen:");
+                        filename_bottom = Console.ReadLine();
+                        break;
+                }
+            }
 
             switch (tablet)
             {
                 case "1": //PTK-540WL
-                    config_top = "{\n  \"Name\": \"Wacom PTK-540WL\",\n  \"Specifications\": {\n    \"Digitizer\": {\n      \"Width\": 203.2,\n      \"Height\": 127.0,\n      \"MaxX\": 40640.0,\n      \"MaxY\": 25400.0\n    },\n    \"Pen\": {\n      \"MaxPressure\": 2047,\n      \"Buttons\": {\n        \"ButtonCount\": 2\n      }\n    },\n    \"AuxiliaryButtons\": {\n      \"ButtonCount\": 9\n    },\n    \"MouseButtons\": null,\n    \"Touch\": null\n  },\n  \"DigitizerIdentifiers\": [\n    {\n      \"VendorID\": 1386,\n      \"ProductID\": 188,\n      \"InputReportLength\": 10,\n      \"OutputReportLength\": null,\n      \"ReportParser\": \"OpenTabletDriver.Configurations.Parsers.Wacom.IntuosV1.IntuosV1ReportParser\",\n      \"FeatureInitReport\": [\n        \"AgI=\",\n";
+                    config_top = "{\n  \"Name\": \"Wacom PTK-540WL\",\n  \"Specifications\": {\n    \"Digitizer\": {\n      \"Width\": 203.2,\n      \"Height\": 127.0,\n      \"MaxX\": 40640.0,\n      \"MaxY\": 25400.0\n    },\n    \"Pen\": {\n      \"MaxPressure\": 2047,\n      \"Buttons\": {\n        \"ButtonCount\": 2\n      }\n    },\n    \"AuxiliaryButtons\": {\n      \"ButtonCount\": 9\n    },\n    \"MouseButtons\": null,\n    \"Touch\": null\n  },\n  \"DigitizerIdentifiers\": [\n    {\n      \"VendorID\": 1386,\n      \"ProductID\": 188,\n      \"InputReportLength\": 10,\n      \"OutputReportLength\": null,\n      \"ReportParser\": \"OpenTabletDriver.Configurations.Parsers.Wacom.IntuosV1.IntuosV1ReportParser\",\n      \"FeatureInitReport\": [\n        \"AgI=\",\n\"CAIRAAA=\",\n\"CAISAAA=\",\n\"CAITAAA=\",\n\"IQE=\",\n";
                     config_bottom = "      ],\n      \"OutputInitReport\": null,\n      \"DeviceStrings\": {},\n      \"InitializationStrings\": []\n    },\n    {\n      \"VendorID\": 1386,\n      \"ProductID\": 188,\n      \"InputReportLength\": 11,\n      \"OutputReportLength\": null,\n      \"ReportParser\": \"OpenTabletDriver.Configurations.Parsers.Wacom.IntuosV1.WacomDriverIntuosV1ReportParser\",\n      \"FeatureInitReport\": [\n        \"AgI=\"\n      ],\n      \"OutputInitReport\": null,\n      \"DeviceStrings\": {},\n      \"InitializationStrings\": []\n    }\n  ],\n  \"AuxilaryDeviceIdentifiers\": [],\n  \"Attributes\": {}\n}";
                     tablet_name = "PTK-540WL";
                     break;
@@ -49,24 +89,6 @@ namespace PTK_led_sandbox
                     config_top = "";
                     config_bottom = "";
                     tablet_name = "no_name";
-                    break;
-            }
-
-            switch (display)
-            {
-                case "1": //top
-                    Console.WriteLine("File to convert:");
-                    filename_top = Console.ReadLine();
-                    break;
-                case "2": //bottom
-                    Console.WriteLine("File to convert:");
-                    filename_bottom = Console.ReadLine();
-                    break;
-                case "3": //both
-                    Console.WriteLine("File to convert for top screen:");
-                    filename_top = Console.ReadLine();
-                    Console.WriteLine("File to convert for bottom screen:");
-                    filename_bottom = Console.ReadLine();
                     break;
             }
 
