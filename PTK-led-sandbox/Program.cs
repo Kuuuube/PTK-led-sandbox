@@ -9,7 +9,7 @@ namespace PTK_led_sandbox
             string config_top;
             string config_bottom;
             string tablet_name;
-            int displayChunk = 0;
+            int displayChunk;
             string tablet;
             string display;
             string filename_top = null;
@@ -188,6 +188,7 @@ namespace PTK_led_sandbox
                         initString[initStringIndex - 1] |= convertedImg[i];
                     }
                 }
+                fileOutputStr += '\"' + Convert.ToBase64String(initString) + "\"," + Environment.NewLine;
                 return (fileOutputStr);
             }
 
