@@ -1,8 +1,10 @@
 # PTK-led-sandbox
-App for working with Wacom PTK-1240 LED displays
+App for working with Wacom PTK-1240 LED displays.
 
 ## Usage
-1. Make a 16 color format bmp image with a resolution of 64 x 128 px.
+1. Make a 16 color format bmp image with a resolution of 64 x 128 px. 
+
+    [16 color bmp conversion tutorial using Gimp](https://github.com/Kuuuube/PTK-led-sandbox/blob/master/gimp_image_tutorial/gimp_image_tutorial.md)
 2. Place it alongside the app.
 3. Run either with or without command line args.
 
