@@ -7,7 +7,7 @@ App for working with Wacom PTK-1240 LED displays.
     [16 color bmp conversion tutorial using Gimp](https://github.com/Kuuuube/PTK-led-sandbox/blob/master/gimp_image_tutorial/gimp_image_tutorial.md)
 2. Place any bmp files in a folder for conversion. Use separate folders for top and bottom screens. 
 
-    Examples of how files are ordered when using multiple: `1 11 111 2 22 222` or `01 02 03 04 05 06`.
+    Examples of how files are ordered when using multiple: `1 11 111 2 22 222` or `001 002 003 004 005 006`.
 3. Run either with or without command line args.
 
 ## Command line args
