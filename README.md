@@ -2,16 +2,18 @@
 App for working with Wacom PTK-1240 LED displays.
 
 ## Usage
-1. Make a 16 color format bmp image with a resolution of 64 x 128 px. 
+1. Make a 16 color format bmp image with a resolution of 64 x 128 px.
 
     [16 color bmp conversion tutorial using Gimp](https://github.com/Kuuuube/PTK-led-sandbox/blob/master/gimp_image_tutorial/gimp_image_tutorial.md)
-2. Place it alongside the app.
+2. Place any bmp files in a folder for conversion. Use separate folders for top and bottom screens. 
+
+    Examples of how files are ordered when using multiple: `1 11 111 2 22 222` or `01 02 03 04 05 06`.
 3. Run either with or without command line args.
 
 ## Command line args
 
 ```
-PTK-led-sandbox {display} {tablet} {filename 1} {filename 2}
+PTK-led-sandbox {display} {tablet} {foldername 1} {foldername 2}
 ```
 
 ### Display
@@ -24,7 +26,7 @@ PTK-led-sandbox {display} {tablet} {filename 1} {filename 2}
 
 ### Tablet
 
-`0`: Generate without tablet config
+`0`: No config
 
 `1`: PTK-540WL
 
@@ -36,7 +38,7 @@ PTK-led-sandbox {display} {tablet} {filename 1} {filename 2}
 
 ### Filename 1
 
-Relative or absolute path to the file to use. 
+Relative or absolute path to the folder to use. 
 
 When Display is `1` or `3` this will be used for the top display.
 
@@ -44,7 +46,7 @@ When Display is `2` this will be used for the bottom display.
 
 ### Filename 2 
 
-Relative or absolute path to the file to use. 
+Relative or absolute path to the folder to use. 
 
 When Display is `3` this will be used for the bottom display.
 
