@@ -16,6 +16,8 @@ namespace PTK_led_sandbox
             string filename_bottom = null;
             string fileOutputStr_top = "";
             string fileOutputStr_bottom = "";
+            string[]  file_list_top = null;
+            string[] file_list_bottom = null;
 
             if (args.Length != 0)
             {
@@ -47,17 +49,17 @@ namespace PTK_led_sandbox
                 switch (display)
                 {
                     case "1": //top
-                        Console.WriteLine("File to convert:");
+                        Console.WriteLine("Folder to convert:");
                         filename_top = Console.ReadLine();
                         break;
                     case "2": //bottom
-                        Console.WriteLine("File to convert:");
+                        Console.WriteLine("Folder to convert:");
                         filename_bottom = Console.ReadLine();
                         break;
                     case "3": //both
-                        Console.WriteLine("File to convert for top screen:");
+                        Console.WriteLine("Folder to convert for top screen:");
                         filename_top = Console.ReadLine();
-                        Console.WriteLine("File to convert for bottom screen:");
+                        Console.WriteLine("Folder to convert for bottom screen:");
                         filename_bottom = Console.ReadLine();
                         break;
                 }
@@ -94,15 +96,31 @@ namespace PTK_led_sandbox
 
             if (filename_top != null)
             {
-                displayChunk = 0;
-                fileOutputStr_top = convert_bmp(displayChunk, filename_top);
+                file_list_top = System.IO.Directory.GetFiles(filename_top, "*.bmp", System.IO.SearchOption.TopDirectoryOnly);
             }
             if (filename_bottom != null)
             {
-                displayChunk = 4;
-                fileOutputStr_bottom = convert_bmp(displayChunk, filename_bottom);
+                file_list_bottom = System.IO.Directory.GetFiles(filename_bottom, "*.bmp", System.IO.SearchOption.TopDirectoryOnly);
             }
 
+            int top = 0;
+            int bottom = 0;
+
+            while ((filename_top != null && file_list_top.Length >= top + 1) || (filename_bottom != null && file_list_bottom.Length >= bottom + 1))
+            {
+                if (filename_top != null && file_list_top.Length >= top + 1)
+                {
+                    displayChunk = 0;
+                    fileOutputStr_top += convert_bmp(displayChunk, file_list_top[top]);
+                    top += 1;
+                }
+                if (filename_bottom != null && file_list_bottom.Length >= bottom + 1)
+                {
+                    displayChunk = 4;
+                    fileOutputStr_bottom += convert_bmp(displayChunk, file_list_bottom[bottom]);
+                    bottom += 1;
+                }
+            }
 
             string configStr = config_top + fileOutputStr_top + fileOutputStr_bottom + config_bottom;
             System.IO.File.WriteAllText(tablet_name + ".json", configStr);
