@@ -26,7 +26,7 @@ PTK-led-sandbox {display} {tablet} {foldername 1} {foldername 2}
 
 ### Tablet
 
-`0`: No config
+`0`: No config (These can be sent to any tablet using [InitSender](https://github.com/Kuuuube/InitSender))
 
 `1`: PTK-540WL
 
