@@ -13,7 +13,7 @@ App for working with Wacom PTK-1240 LED displays.
 ## Command line args
 
 ```
-PTK-led-sandbox {display} {tablet} {foldername 1} {foldername 2}
+PTK-led-sandbox {display} {tablet} {alternate} {foldername 1} {foldername 2}
 ```
 
 ### Display
@@ -36,6 +36,14 @@ PTK-led-sandbox {display} {tablet} {foldername 1} {foldername 2}
 
 `4`: PTK-1240
 
+### Alternate
+
+When writing inits for animations should each frame alternate which display it uses or should the entire animation play on one display then the other. When Display is `1` or `2` this is unused but must not be ommited.
+
+`1`: Alternate Displays
+
+`2`: Write top screen then bottom screen
+
 ### Filename 1
 
 Relative or absolute path to the folder to use. 
@@ -56,6 +64,6 @@ When Display is `1` or `2` this is not used and can be omitted.
 
 ```
 $options= @('--configuration', 'Release', '-p:PublishSingleFile=true', '-p:DebugType=embedded', '--self-contained', 'false')
-dotnet publish PTK-led-sandbox $options --runtime win-x64 --framework net5.0 -o build/win-x64
-dotnet publish PTK-led-sandbox $options --runtime linux-x64 --framework net5.0 -o build/linux-x64
+dotnet publish PTK-led-sandbox $options --runtime win-x64 --framework net6.0 -o build/win-x64
+dotnet publish PTK-led-sandbox $options --runtime linux-x64 --framework net6.0 -o build/linux-x64
 ```

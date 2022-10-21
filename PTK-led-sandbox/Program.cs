@@ -12,28 +12,34 @@ namespace PTK_led_sandbox
             int displayChunk;
             string tablet;
             string display;
+            string fileOutputStr = null;
             string filename_top = null;
             string filename_bottom = null;
             string fileOutputStr_top = "";
             string fileOutputStr_bottom = "";
             string[]  file_list_top = null;
             string[] file_list_bottom = null;
+            string alternate = "2";
 
             if (args.Length != 0)
             {
                 display = args[0];
                 tablet = args[1];
+                if (display == "3")
+                {
+                    alternate = args[2];
+                }
                 switch (display)
                 {
                     case "1":
-                        filename_top = args[2];
+                        filename_top = args[3];
                         break;
                     case "2":
-                        filename_bottom = args[2];
+                        filename_bottom = args[3];
                         break;
                     case "3":
-                        filename_top = args[2];
-                        filename_bottom = args[3];
+                        filename_top = args[3];
+                        filename_bottom = args[4];
                         break;
                 }
             }
@@ -61,6 +67,8 @@ namespace PTK_led_sandbox
                         filename_top = Console.ReadLine();
                         Console.WriteLine("Folder to convert for bottom screen:");
                         filename_bottom = Console.ReadLine();
+                        Console.WriteLine("Display writing method:\n1. Alternate Displays\n2. Write top screen then bottom screen");
+                        alternate = Console.ReadLine();
                         break;
                 }
             }
@@ -108,23 +116,50 @@ namespace PTK_led_sandbox
 
             while ((filename_top != null && file_list_top.Length >= top + 1) || (filename_bottom != null && file_list_bottom.Length >= bottom + 1))
             {
-                if (filename_top != null && file_list_top.Length >= top + 1)
+                if (filename_top != null && filename_bottom != null && alternate == "1")
                 {
-                    displayChunk = 0;
-                    fileOutputStr_top += convert_bmp(displayChunk, file_list_top[top]);
-                    top += 1;
+                    if (filename_top != null && file_list_top.Length >= top + 1)
+                    {
+                        displayChunk = 0;
+                        fileOutputStr += convert_bmp(displayChunk, file_list_top[top]);
+                        top += 1;
+                    }
+                    if (filename_bottom != null && file_list_bottom.Length >= bottom + 1)
+                    {
+                        displayChunk = 4;
+                        fileOutputStr += convert_bmp(displayChunk, file_list_bottom[bottom]);
+                        bottom += 1;
+                    }
                 }
-                if (filename_bottom != null && file_list_bottom.Length >= bottom + 1)
+                else
                 {
-                    displayChunk = 4;
-                    fileOutputStr_bottom += convert_bmp(displayChunk, file_list_bottom[bottom]);
-                    bottom += 1;
+                    if (filename_top != null && file_list_top.Length >= top + 1)
+                    {
+                        displayChunk = 0;
+                        fileOutputStr_top += convert_bmp(displayChunk, file_list_top[top]);
+                        top += 1;
+                    }
+                    if (filename_bottom != null && file_list_bottom.Length >= bottom + 1)
+                    {
+                        displayChunk = 4;
+                        fileOutputStr_bottom += convert_bmp(displayChunk, file_list_bottom[bottom]);
+                        bottom += 1;
+                    }
                 }
             }
 
-            string configStr = config_top + fileOutputStr_top + fileOutputStr_bottom + config_bottom;
-            System.IO.File.WriteAllText(tablet_name + ".json", configStr);
 
+            string configStr = "";
+
+            if (alternate == "1")
+            {
+                configStr = config_top + fileOutputStr + config_bottom;
+            }
+            else
+            {
+                configStr = config_top + fileOutputStr_top + fileOutputStr_bottom + config_bottom;
+            }
+            System.IO.File.WriteAllText(tablet_name + ".json", configStr);
 
 
             string convert_bmp (int displayChunk, string filename)
