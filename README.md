@@ -60,6 +60,10 @@ When Display is `3` this will be used for the bottom display.
 
 When Display is `1` or `2` this is not used and can be omitted.
 
+## Dependencies
+
+.Net Runtime 6.0 x64: https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+
 ## Building
 
 ```
