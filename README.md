@@ -4,7 +4,7 @@ App for working with Wacom PTK-1240 LED displays.
 ## Usage
 1. Make a 16 color format bmp image with a resolution of 64 x 128 px.
 
-    [16 color bmp conversion tutorial using Gimp](https://github.com/Kuuuube/PTK-led-sandbox/blob/master/gimp_image_tutorial/gimp_image_tutorial.md)
+    16 color bmp conversion tutorial using Gimp: [Single Image](./gimp_image_tutorial/gimp_single_image_tutorial.md) [Animation](./gimp_image_tutorial/gimp_animation_tutorial.md)
 2. Place any bmp files in a folder for conversion. Use separate folders for top and bottom screens. 
 
     Examples of how files are ordered when using multiple: `1 11 111 2 22 222` or `001 002 003 004 005 006`.
