@@ -1,14 +1,14 @@
 # Gimp Animation Tutorial
 
-1. Crop and/or resize the desired image to 64 x 128 px. Scaling all layers can be done with `Scale Image`.
+1. Crop and/or resize the desired animation to 64 x 128 px. Scaling all layers can be done with `Scale Image`.
 
 ![](scale_image.png)
 
-2. Set the image to grayscale.
+2. Set the animation to grayscale.
 
 ![](grayscale.png)
 
-3. Set the image to indexed.
+3. Set the animation to indexed.
 
 ![](indexed.png)
 

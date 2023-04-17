@@ -1,4 +1,4 @@
-# Gimp Single Image Tutorial
+# Gimp Image Tutorial
 
 1. Crop and/or resize the desired image to 64 x 128 px.
 
