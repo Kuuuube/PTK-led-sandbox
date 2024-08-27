@@ -49,7 +49,7 @@ namespace PTK_led_sandbox
                 Console.WriteLine("Which LED display to set image for?\n1. Top\n2. Bottom\n3. Both");
                 display = Console.ReadLine();
 
-                Console.WriteLine("Generate config for which tablet?\n0. No config\n1. PTK-540WL\n2. PTK-640\n3. PTK-840\n4. PTK-1240");
+                Console.WriteLine("Generate config for which tablet?\n0. No config\n1. PTK-540WL (Opentabletdriver)\n2. PTK-640 (Opentabletdriver)\n3. PTK-840 (Opentabletdriver)\n4. PTK-1240 (Opentabletdriver)");
                 tablet = Console.ReadLine();
 
                 switch (display)
