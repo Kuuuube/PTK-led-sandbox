@@ -20,7 +20,7 @@
 
 ![](reverse_layer_order.png)
 
-6. To export all layers use the [Export Layers](https://khalim19.github.io/gimp-plugin-export-layers/) plugin. Set the `Layer name` to the `layer[001]` preset and set the file extension to `bmp`.
+6. To export all layers use the [Export Layers](https://khalim19.github.io/gimp-plugin-export-layers/) (Gimp 2) or [Batcher](https://kamilburda.github.io/batcher/) (Gimp 3) plugin. Set the `Layer name` to the `layer[001]` preset and set the file extension to `bmp`.
 
 ![](export_layers.png)
 
